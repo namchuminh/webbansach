@@ -1,5 +1,7 @@
 <?php require(__DIR__.'/layouts/header.php'); ?>   
 <?php 
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('error_reporting', E_ALL & ~E_NOTICE);
 require('../database/connect.php'); 
 require('../database/query.php');   
 
@@ -91,22 +93,22 @@ $slbc = queryResult($conn,$sql_slbc);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1; ?>
-                                        <?php while($row = $slbc->fetch_assoc()){ ?>
-                                            <tr>
-                                                <td><?php echo $i ?></td>
-                                                <td><?php echo $row['tensanpham']; ?></td>
-                                                <td><?php echo $row['sl']; ?></td>
-                                                <td><?php echo number_format($row['tt']); ?>đ</td>
-                                            </tr>
-                                        <?php $i++; } ?>
+                                        <?php if($slbc != 0){ ?>
+                                            <?php $i = 1; ?>
+                                            <?php while($row = $slbc->fetch_assoc()){ ?>
+                                                <tr>
+                                                    <td><?php echo $i ?></td>
+                                                    <td><?php echo $row['tensanpham']; ?></td>
+                                                    <td><?php echo $row['sl']; ?></td>
+                                                    <td><?php echo number_format($row['tt']); ?>đ</td>
+                                                </tr>
+                                            <?php $i++; } ?>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                
             </div>
 <?php require(__DIR__.'/layouts/footer.php'); ?>        
